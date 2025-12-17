@@ -1,0 +1,5 @@
+{
+  "name": "Markwise",
+  "description": "AI-powered smart bookmark manager that automatically summarizes and categorizes your links using Gemini.",
+  "requestFramePermissions": []
+}
