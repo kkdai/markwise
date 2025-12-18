@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bookmark, ViewMode } from '../types';
-import { ExternalLink, Calendar, Tag, MoreHorizontal } from 'lucide-react';
+import { Calendar, Tag, MoreHorizontal } from 'lucide-react';
 
 interface BookmarkCardProps {
   bookmark: Bookmark;
@@ -15,7 +15,6 @@ const BookmarkCard: React.FC<BookmarkCardProps> = ({ bookmark, viewMode, onClick
     day: 'numeric'
   });
 
-  // Use a generic placeholder if no favicon
   const faviconUrl = bookmark.favicon || `https://www.google.com/s2/favicons?domain=${bookmark.url}&sz=64`;
 
   if (viewMode === ViewMode.LIST) {
@@ -32,20 +31,24 @@ const BookmarkCard: React.FC<BookmarkCardProps> = ({ bookmark, viewMode, onClick
             <h3 className="font-semibold text-gray-900 truncate group-hover:text-blue-600 transition-colors">
               {bookmark.title}
             </h3>
-            <span className="text-xs text-gray-400 flex-shrink-0">{date}</span>
+            <span className="text-xs text-gray-400 flex-shrink-0 ml-2">{date}</span>
           </div>
           <p className="text-sm text-gray-500 truncate mt-1">{bookmark.url}</p>
-          <div className="flex gap-2 mt-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700">
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-100 text-blue-700">
               {bookmark.ai_category}
             </span>
+            {(bookmark.ai_tags || []).slice(0, 3).map(tag => (
+              <span key={tag} className="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-600">
+                #{tag}
+              </span>
+            ))}
           </div>
         </div>
       </div>
     );
   }
 
-  // Grid View
   return (
     <div 
       onClick={() => onClick(bookmark)}
@@ -69,10 +72,18 @@ const BookmarkCard: React.FC<BookmarkCardProps> = ({ bookmark, viewMode, onClick
           {bookmark.ai_summary}
         </p>
 
+        <div className="flex flex-wrap gap-1.5 mb-4">
+           {(bookmark.ai_tags || []).slice(0, 3).map(tag => (
+             <span key={tag} className="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-50 text-gray-500 border border-gray-100">
+               #{tag}
+             </span>
+           ))}
+        </div>
+
         <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between text-xs text-gray-400">
           <div className="flex items-center gap-2">
-            <Tag size={12} />
-            <span>{bookmark.ai_category}</span>
+            <Tag size={12} className="text-blue-500" />
+            <span className="font-semibold text-gray-600 uppercase tracking-tighter">{bookmark.ai_category}</span>
           </div>
           <div className="flex items-center gap-2">
             <Calendar size={12} />

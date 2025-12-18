@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { X, Sparkles, Loader2, Link as LinkIcon, AlertCircle } from 'lucide-react';
 import { analyzeUrlWithGemini } from '../services/geminiService';
@@ -20,6 +21,8 @@ const AddBookmarkModal: React.FC<AddBookmarkModalProps> = ({ isOpen, onClose, on
     ai_summary: '',
     ai_key_points: [],
     ai_category: '',
+    // Initialize ai_tags to empty array
+    ai_tags: [],
     is_public: true
   });
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +44,8 @@ const AddBookmarkModal: React.FC<AddBookmarkModalProps> = ({ isOpen, onClose, on
         ai_summary: result.ai_summary || '',
         ai_key_points: result.ai_key_points || [],
         ai_category: result.ai_category || 'Uncategorized',
+        // Pass ai_tags from analysis result
+        ai_tags: result.ai_tags || [],
         is_public: true
       });
       setStep('EDIT');

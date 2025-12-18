@@ -8,6 +8,7 @@ export interface Bookmark {
   ai_summary: string;
   ai_key_points: string[];
   ai_category: string;
+  ai_tags: string[]; // New: support for multiple tags
   
   // Metadata
   og_image?: string;
@@ -32,5 +33,6 @@ export interface BookmarkFormData {
   ai_summary: string;
   ai_key_points: string[];
   ai_category: string;
+  ai_tags: string[];
   is_public: boolean;
 }
